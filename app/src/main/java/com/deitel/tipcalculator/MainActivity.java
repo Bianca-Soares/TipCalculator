@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main); // inflate the GUI
 
         // get references to programmatically manipulated TextViews
-        amountTextView = (TextView) findViewById(R.id.amountTextView);
-        percentTextView = (TextView) findViewById(R.id.percentTextView);
+        amountTextView = (TextView) findViewById(R.id.amountTextView);//transforma em objeto
+        percentTextView = (TextView) findViewById(R.id.percentTextView);//conversão (TextView)
         tipTextView = (TextView) findViewById(R.id.tipTextView);
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         tipTextView.setText(currencyFormat.format(0));
@@ -88,9 +88,10 @@ public class MainActivity extends AppCompatActivity {
             };
 
     // listener object for the EditText's text-changed events
-    private final TextWatcher amountEditTextWatcher = new TextWatcher() {
+    private final TextWatcher amountEditTextWatcher = new TextWatcher() {//evento reagir
         // called when the user modifies the bill amount
         @Override
+        //igual onclick
         public void onTextChanged(CharSequence s, int start,
                                   int before, int count) {
 
