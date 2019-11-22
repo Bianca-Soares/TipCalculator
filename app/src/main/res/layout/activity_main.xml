@@ -50,7 +50,7 @@
       android:layout_height="@dimen/seekbar_height"
       android:id="@+id/percentSeekBar"
       android:indeterminate="false"
-      android:max="100"
+      android:max="30"
       android:progress="15"
       android:layout_gravity="fill_horizontal"/>
 
