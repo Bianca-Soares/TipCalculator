@@ -51,7 +51,7 @@
       android:id="@+id/percentSeekBar"
       android:indeterminate="false"
       android:max="100"
-      android:progress="30"
+      android:progress="100"
       android:layout_gravity="fill_horizontal"/>
 
    <TextView
