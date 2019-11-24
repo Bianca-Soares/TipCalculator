@@ -24,18 +24,18 @@
       android:layout_columnSpan="2"/>
 
    <TextView
+       android:id="@+id/amountTextView"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:textAppearance="?android:attr/textAppearanceMedium"
-       android:id="@+id/amountTextView"
        android:layout_row="0"
        android:layout_column="0"
        android:layout_columnSpan="2"
-       android:hint="@string/enter_amount"
        android:layout_gravity="fill_horizontal"
-       android:background="@color/amount_background"
+       android:background="#59BBDEFB"
+       android:elevation="@dimen/elevation"
+       android:hint="@string/enter_amount"
        android:padding="@dimen/textview_padding"
-       android:elevation="@dimen/elevation"/>
+       android:textAppearance="?android:attr/textAppearanceMedium" />
 
    <EditText
        android:layout_width="wrap_content"

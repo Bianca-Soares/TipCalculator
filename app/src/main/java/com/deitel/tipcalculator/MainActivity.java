@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private double celsius = 0.0; // bill amount entered by the user
     private double fahrenheit = 0.0;
-   // private double percent = 0.0; // initial tip percentage
     private TextView amountTextView; // shows formatted bill amount
-    private TextView percentTextView; // shows tip percentage
+    private TextView amountTextView2;
     private TextView totalTextView; // shows calculated tip amount
     private TextView totalTextView2; // shows calculated total bill amount
 
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         // get references to programmatically manipulated TextViews
         amountTextView = (TextView) findViewById(R.id.amountTextView);//transforma em objeto
-     //   percentTextView = (TextView) findViewById(R.id.percentTextView);//conversão (TextView)
+        amountTextView2 = (TextView) findViewById(R.id.amountTextView2);//transforma em objeto
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         totalTextView2 = (TextView) findViewById(R.id.totalTextView2);
 
@@ -131,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
 
             try { // get bill amount and display currency formatted value
                 fahrenheit = Double.parseDouble(s.toString()) / 100.0;
-                amountTextView.setText(currencyFormat.format(fahrenheit));
+                amountTextView2.setText(currencyFormat.format(fahrenheit));
             } catch (NumberFormatException e) { // if s is empty or non-numeric
-                amountTextView.setText("");
+                amountTextView2.setText("");
                 fahrenheit = 0.0;
             }
 
