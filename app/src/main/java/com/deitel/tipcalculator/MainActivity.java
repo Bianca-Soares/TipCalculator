@@ -17,10 +17,10 @@ import java.text.NumberFormat; // for currency formatting
 public class MainActivity extends AppCompatActivity {
 
     // currency and percent formatter objects
-    private static final NumberFormat currencyFormat =
+   /* private static final NumberFormat currencyFormat =
             NumberFormat.getCurrencyInstance();
     private static final NumberFormat percentFormat =
-            NumberFormat.getPercentInstance();
+            NumberFormat.getPercentInstance();*/
 
     private double celsius = 0.0; // bill amount entered by the user
     private double fahrenheit = 0.0;
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         totalTextView2 = (TextView) findViewById(R.id.totalTextView2);
 
-        totalTextView.setText(currencyFormat.format(0));
-        totalTextView2.setText(currencyFormat.format(0));
+        totalTextView.setText(0);
+        totalTextView2.setText(0);
 
         // set amountEditText's TextWatcher
         EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
@@ -61,15 +61,15 @@ public class MainActivity extends AppCompatActivity {
 
         // calculate the tip and total
         double total = celsius * 1.8 + 32;
-
+        String result = new Double(total).toString();
         // display tip and total formatted as currency
-        totalTextView.setText(currencyFormat.format(total));
+        totalTextView.setText(result);
     }
 
     private void calculate2() {
         double total2 = (fahrenheit - 32)* (5/9);
-
-        totalTextView2.setText(currencyFormat.format(total2));
+        String result2 = new Double(total2).toString();
+        totalTextView2.setText(result2);
     }
 
     // listener object for the SeekBar's progress changed events
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             try { // get bill amount and display currency formatted value
                 celsius = Double.parseDouble(s.toString()) / 100.0;
-                amountTextView.setText(currencyFormat.format(celsius));
+                amountTextView.setText(Double.toString(celsius));
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView.setText("");
                 celsius = 0.0;
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
             try { // get bill amount and display currency formatted value
                 fahrenheit = Double.parseDouble(s.toString()) / 100.0;
-                amountTextView2.setText(currencyFormat.format(fahrenheit));
+                amountTextView2.setText(Double.toString(fahrenheit));
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView2.setText("");
                 fahrenheit = 0.0;
