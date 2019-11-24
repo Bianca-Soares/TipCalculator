@@ -1,6 +1,7 @@
 <resources>
    <string name="app_name">Celsius X Fahrenheit</string>
    <string name="enter_amount">Celsius</string>
+   <string name="fahrenheit">Fahrenheit</string>
    <string name="tip_percentage">0</string>
    <string name="tip">Celsius</string>
    <string name="total">Fahrenheit</string>

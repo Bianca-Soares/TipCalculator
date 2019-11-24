@@ -23,11 +23,12 @@ public class MainActivity extends AppCompatActivity {
             NumberFormat.getPercentInstance();
 
     private double celsius = 0.0; // bill amount entered by the user
-    private double percent = 0.0; // initial tip percentage
+    private double fahrenheit = 0.0;
+   // private double percent = 0.0; // initial tip percentage
     private TextView amountTextView; // shows formatted bill amount
     private TextView percentTextView; // shows tip percentage
-    private TextView tipTextView; // shows calculated tip amount
-    private TextView totalTextView; // shows calculated total bill amount
+    private TextView totalTextView; // shows calculated tip amount
+    private TextView totalTextView2; // shows calculated total bill amount
 
     // called when the activity is first created
     @Override
@@ -37,38 +38,43 @@ public class MainActivity extends AppCompatActivity {
 
         // get references to programmatically manipulated TextViews
         amountTextView = (TextView) findViewById(R.id.amountTextView);//transforma em objeto
-        percentTextView = (TextView) findViewById(R.id.percentTextView);//conversão (TextView)
-        tipTextView = (TextView) findViewById(R.id.tipTextView);
+     //   percentTextView = (TextView) findViewById(R.id.percentTextView);//conversão (TextView)
         totalTextView = (TextView) findViewById(R.id.totalTextView);
-        tipTextView.setText(currencyFormat.format(0));
+        totalTextView2 = (TextView) findViewById(R.id.totalTextView2);
+
         totalTextView.setText(currencyFormat.format(0));
+        totalTextView2.setText(currencyFormat.format(0));
 
         // set amountEditText's TextWatcher
         EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
         amountEditText.addTextChangedListener(amountEditTextWatcher);//img --> objeto ---> ouvinte
 
+        EditText amountEditText2 = (EditText) findViewById(R.id.amountEditText2);
+        amountEditText2.addTextChangedListener(amountEditTextWatcher2);//img --> objeto ---> ouvinte
+
         // set percentSeekBar's OnSeekBarChangeListener
-        SeekBar percentSeekBar =
-                (SeekBar) findViewById(R.id.percentSeekBar);
-        percentSeekBar.setOnSeekBarChangeListener(seekBarListener);
+
     }
 
     // calculate and display tip and total amounts
     private void calculate() {
-        // format percent and display in percentTextView
-        percentTextView.setText(percentFormat.format(percent));
+      //  percentTextView.setText(percentFormat.format(percent));
 
         // calculate the tip and total
-        double tip = celsius * 1.8 + 35;
         double total = celsius * 1.8 + 32;
 
         // display tip and total formatted as currency
-        //tipTextView.setText(currencyFormat.format(tip));
         totalTextView.setText(currencyFormat.format(total));
     }
 
+    private void calculate2() {
+        double total2 = (fahrenheit - 32)* (5/9);
+
+        totalTextView2.setText(currencyFormat.format(total2));
+    }
+
     // listener object for the SeekBar's progress changed events
-    private final OnSeekBarChangeListener seekBarListener =
+   /* private final OnSeekBarChangeListener seekBarListener =
             new OnSeekBarChangeListener() {
                 // update percent, then call calculate
                 @Override
@@ -85,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                 }
-            };
+            };*/
 
     // listener object for the EditText's text-changed events
     private final TextWatcher amountEditTextWatcher = new TextWatcher() {//evento reagir
@@ -115,6 +121,35 @@ public class MainActivity extends AppCompatActivity {
                 CharSequence s, int start, int count, int after) {
         }
     };
+
+    private final TextWatcher amountEditTextWatcher2 = new TextWatcher() {//evento reagir
+        // called when the user modifies the bill amount
+        @Override
+        //igual onclick
+        public void onTextChanged(CharSequence s, int start,
+                                  int before, int count) {
+
+            try { // get bill amount and display currency formatted value
+                fahrenheit = Double.parseDouble(s.toString()) / 100.0;
+                amountTextView.setText(currencyFormat.format(fahrenheit));
+            } catch (NumberFormatException e) { // if s is empty or non-numeric
+                amountTextView.setText("");
+                fahrenheit = 0.0;
+            }
+
+            calculate2(); // update the tip and total TextViews
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+
+        @Override
+        public void beforeTextChanged(
+                CharSequence s, int start, int count, int after) {
+        }
+    };
+
 }
 
 
