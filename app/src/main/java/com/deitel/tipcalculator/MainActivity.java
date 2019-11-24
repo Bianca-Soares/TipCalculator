@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private static final NumberFormat percentFormat =
             NumberFormat.getPercentInstance();
 
-    private double billAmount = 0.0; // bill amount entered by the user
-    private double percent = 0.15; // initial tip percentage
+    private double celsius = 0.0; // bill amount entered by the user
+    private double percent = 0.0; // initial tip percentage
     private TextView amountTextView; // shows formatted bill amount
     private TextView percentTextView; // shows tip percentage
     private TextView tipTextView; // shows calculated tip amount
@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         percentTextView.setText(percentFormat.format(percent));
 
         // calculate the tip and total
-        double tip = billAmount * percent;
-        double total = billAmount + tip;
+        double tip = celsius * 1.8 + 35;
+        double total = celsius * 1.8 + 32;
 
         // display tip and total formatted as currency
-        tipTextView.setText(currencyFormat.format(tip));
+        //tipTextView.setText(currencyFormat.format(tip));
         totalTextView.setText(currencyFormat.format(total));
     }
 
@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
                                   int before, int count) {
 
             try { // get bill amount and display currency formatted value
-                billAmount = Double.parseDouble(s.toString()) / 100.0;
-                amountTextView.setText(currencyFormat.format(billAmount));
+                celsius = Double.parseDouble(s.toString()) / 100.0;
+                amountTextView.setText(currencyFormat.format(celsius));
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView.setText("");
-                billAmount = 0.0;
+                celsius = 0.0;
             }
 
             calculate(); // update the tip and total TextViews

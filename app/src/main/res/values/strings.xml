@@ -1,7 +1,7 @@
 <resources>
-   <string name="app_name">Conversor simples</string>
-   <string name="enter_amount">Valor a converter</string>
-   <string name="tip_percentage">15%</string>
-   <string name="tip">Tip</string>
+   <string name="app_name">Celsius X Fahrenheit</string>
+   <string name="enter_amount">Celsius</string>
+   <string name="tip_percentage">0</string>
+   <string name="tip">Celsius</string>
    <string name="total">Fahrenheit</string>
 </resources>
