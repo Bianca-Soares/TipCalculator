@@ -9,18 +9,9 @@ import android.text.TextWatcher; // EditText listener
 import android.widget.EditText; // for bill amount input
 import android.widget.TextView; // for displaying text
 
-import java.text.NumberFormat; // for currency formatting
-import java.util.Currency;
-import java.util.Locale;
 
 // MainActivity class for the Tip Calculator app
 public class MainActivity extends AppCompatActivity {
-
-    // currency and percent formatter objects
-    private static final NumberFormat currencyFormat =
-            NumberFormat.getCurrencyInstance();
-    private static final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
-
 
     private double celsius = 0.0; // bill amount entered by the user
     private double fahrenheit = 0.0;
@@ -41,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         totalTextView2 = (TextView) findViewById(R.id.totalTextView2);
 
-        double total2= 0;
-        String result2 = new Double(total2).toString();
-        totalTextView.setText(result2);
-        totalTextView2.setText(result2);
+        double total= 0;
+        String result = new Double(total).toString();
+        totalTextView.setText("ºF "+ result);
+        totalTextView2.setText("ºC "+ result);
 
         // set amountEditText's TextWatcher
         EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
@@ -57,20 +48,16 @@ public class MainActivity extends AppCompatActivity {
     // calculate and display tip and total amounts
     private void calculate() {
         double total = celsius * 1.8 + 32;
-        /*String result = new Double(total).toString();
-        format.setCurrency(Currency.getInstance("Cº "));
-        String res = format.format(result);
 
-        // display tip and total formatted as currency
-        totalTextView.setText(res);*/
         String result = new Double(total).toString();
-        totalTextView.setText(result);
+        totalTextView.setText("ºF "+ result);
     }
 
     private void calculate2() {
         double total2 = (fahrenheit - 32)* 5/9;
+
         String result2 = new Double(total2).toString();
-        totalTextView2.setText(result2);
+        totalTextView2.setText("ºC "+ result2);
     }
 
     // listener object for the EditText's text-changed events
@@ -84,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             try { // get bill amount and display currency formatted value
                 celsius = Double.parseDouble(s.toString()) / 100.0;
                 String r = new Double(celsius).toString();
-                amountTextView.setText(r);
+                amountTextView.setText("ºC "+ r);
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView.setText("");
                 celsius = 0.0;
@@ -111,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
                                   int before, int count) {
 
             try { // get bill amount and display currency formatted value
-                fahrenheit = Double.parseDouble(s.toString());
+                fahrenheit = Double.parseDouble(s.toString())/ 100.0;
                 String r2 = new Double(fahrenheit).toString();
-                amountTextView2.setText(r2);
+                amountTextView2.setText("ºF "+ r2);
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView2.setText("");
                 fahrenheit = 0.0;
