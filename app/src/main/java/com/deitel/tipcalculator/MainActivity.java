@@ -7,11 +7,11 @@ import android.support.v7.app.AppCompatActivity; // base class
 import android.text.Editable; // for EditText event handling
 import android.text.TextWatcher; // EditText listener
 import android.widget.EditText; // for bill amount input
-import android.widget.SeekBar; // for changing the tip percentage
-import android.widget.SeekBar.OnSeekBarChangeListener; // SeekBar listener
 import android.widget.TextView; // for displaying text
 
 import java.text.NumberFormat; // for currency formatting
+import java.util.Currency;
+import java.util.Locale;
 
 // MainActivity class for the Tip Calculator app
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     // currency and percent formatter objects
     private static final NumberFormat currencyFormat =
             NumberFormat.getCurrencyInstance();
-    private static final NumberFormat percentFormat =
-            NumberFormat.getPercentInstance();
+    private static final NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+
 
     private double celsius = 0.0; // bill amount entered by the user
     private double fahrenheit = 0.0;
@@ -41,8 +41,10 @@ public class MainActivity extends AppCompatActivity {
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         totalTextView2 = (TextView) findViewById(R.id.totalTextView2);
 
-        totalTextView.setText(currencyFormat.format(0));
-        totalTextView2.setText(currencyFormat.format(0));
+        double total2= 0;
+        String result2 = new Double(total2).toString();
+        totalTextView.setText(result2);
+        totalTextView2.setText(result2);
 
         // set amountEditText's TextWatcher
         EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
@@ -50,48 +52,26 @@ public class MainActivity extends AppCompatActivity {
 
         EditText amountEditText2 = (EditText) findViewById(R.id.amountEditText2);
         amountEditText2.addTextChangedListener(amountEditTextWatcher2);//img --> objeto ---> ouvinte
-
-        // set percentSeekBar's OnSeekBarChangeListener
-
     }
 
     // calculate and display tip and total amounts
     private void calculate() {
-      //  percentTextView.setText(percentFormat.format(percent));
-
-        // calculate the tip and total
         double total = celsius * 1.8 + 32;
-        String result = new Double(total).toString();
+        /*String result = new Double(total).toString();
+        format.setCurrency(Currency.getInstance("Cº "));
+        String res = format.format(result);
 
         // display tip and total formatted as currency
+        totalTextView.setText(res);*/
+        String result = new Double(total).toString();
         totalTextView.setText(result);
     }
 
     private void calculate2() {
-        double total2 = ((fahrenheit - 32)* (5/9));
+        double total2 = (fahrenheit - 32)* 5/9;
         String result2 = new Double(total2).toString();
         totalTextView2.setText(result2);
     }
-
-    // listener object for the SeekBar's progress changed events
-   /* private final OnSeekBarChangeListener seekBarListener =
-            new OnSeekBarChangeListener() {
-                // update percent, then call calculate
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress,
-                                              boolean fromUser) {
-                    percent = progress / 100.0; // set percent based on progress
-                    calculate(); // calculate and display tip and total
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                }
-            };*/
 
     // listener object for the EditText's text-changed events
     private final TextWatcher amountEditTextWatcher = new TextWatcher() {//evento reagir
@@ -103,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
             try { // get bill amount and display currency formatted value
                 celsius = Double.parseDouble(s.toString()) / 100.0;
-                amountTextView.setText(currencyFormat.format(celsius));
+                String r = new Double(celsius).toString();
+                amountTextView.setText(r);
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView.setText("");
                 celsius = 0.0;
@@ -130,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
                                   int before, int count) {
 
             try { // get bill amount and display currency formatted value
-                fahrenheit = Double.parseDouble(s.toString()) / 100.0;
-                amountTextView2.setText(currencyFormat.format(fahrenheit));
+                fahrenheit = Double.parseDouble(s.toString());
+                String r2 = new Double(fahrenheit).toString();
+                amountTextView2.setText(r2);
             } catch (NumberFormatException e) { // if s is empty or non-numeric
                 amountTextView2.setText("");
                 fahrenheit = 0.0;
