@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity; // base class
 import android.text.Editable; // for EditText event handling
 import android.text.TextWatcher; // EditText listener
 import android.widget.EditText; // for bill amount input
+import android.widget.SeekBar;
 import android.widget.TextView; // for displaying text
 
 
@@ -15,38 +16,38 @@ public class MainActivity extends AppCompatActivity {
 
     private double celsius = 0.0; // bill amount entered by the user
     private double fahrenheit = 0.0;
-    private TextView amountTextView; // shows formatted bill amount
-    private TextView amountTextView2;
-    private TextView totalTextView; // shows calculated tip amount
-    private TextView totalTextView2; // shows calculated total bill amount
+    private double c = 0.0;
+    private TextView cTextView;
+    private TextView totalTextView;
+    private TextView totalTextView2;
 
     // called when the activity is first created
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); // call superclass onCreate
-        setContentView(R.layout.activity_main); // inflate the GUI
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        // get references to programmatically manipulated TextViews
-        amountTextView = (TextView) findViewById(R.id.amountTextView);//transforma em objeto
-        amountTextView2 = (TextView) findViewById(R.id.amountTextView2);//transforma em objeto
         totalTextView = (TextView) findViewById(R.id.totalTextView);
         totalTextView2 = (TextView) findViewById(R.id.totalTextView2);
 
-        double total= 0;
-        String result = new Double(total).toString();
-        totalTextView.setText("ºF "+ result);
-        totalTextView2.setText("ºC "+ result);
 
         // set amountEditText's TextWatcher
         EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
         amountEditText.addTextChangedListener(amountEditTextWatcher);//img --> objeto ---> ouvinte
+        amountEditText.setText("");
 
         EditText amountEditText2 = (EditText) findViewById(R.id.amountEditText2);
         amountEditText2.addTextChangedListener(amountEditTextWatcher2);//img --> objeto ---> ouvinte
+        amountEditText2.setText("");
+
+        SeekBar cSeekBar =
+                (SeekBar) findViewById(R.id.cSeekBar);
+        cSeekBar.setOnSeekBarChangeListener(seekBarListener);
     }
 
     // calculate and display tip and total amounts
     private void calculate() {
+        cTextView.setText(celsius+"");
         double total = celsius * 1.8 + 32;
 
         String result = new Double(total).toString();
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculate2() {
+
         double total2 = (fahrenheit - 32)* 5/9;
 
         String result2 = new Double(total2).toString();
@@ -71,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
             try { // get bill amount and display currency formatted value
                 celsius = Double.parseDouble(s.toString()) / 100.0;
                 String r = new Double(celsius).toString();
-                amountTextView.setText("ºC "+ r);
+                cTextView.setText(r);
             } catch (NumberFormatException e) { // if s is empty or non-numeric
-                amountTextView.setText("");
+                cTextView.setText("");
                 celsius = 0.0;
             }
 
@@ -100,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
             try { // get bill amount and display currency formatted value
                 fahrenheit = Double.parseDouble(s.toString())/ 100.0;
                 String r2 = new Double(fahrenheit).toString();
-                amountTextView2.setText("ºF "+ r2);
+               // amountTextView2.setText("ºF "+ r2);
             } catch (NumberFormatException e) { // if s is empty or non-numeric
-                amountTextView2.setText("");
+              //  amountTextView2.setText("");
                 fahrenheit = 0.0;
             }
 
