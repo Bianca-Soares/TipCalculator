@@ -8,6 +8,7 @@ import android.text.Editable; // for EditText event handling
 import android.text.TextWatcher; // EditText listener
 import android.widget.EditText; // for bill amount input
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener; // SeekBar listener
 import android.widget.TextView; // for displaying text
 
 
@@ -52,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         String result = new Double(total).toString();
         totalTextView.setText("ºF "+ result);
+       // double tip = celsius * percent;
+      //  double total = (celsius-32) * (5/9);
+
+        // display tip and total formatted as currency
+        // tipTextView.setText(currencyFormat.format(tip));
+       // totalTextView.setText(currencyFormat.format(total));
     }
 
     private void calculate2() {
@@ -120,6 +127,26 @@ public class MainActivity extends AppCompatActivity {
                 CharSequence s, int start, int count, int after) {
         }
     };
+
+    // listener object for the SeekBar's progress changed events
+    private final OnSeekBarChangeListener seekBarListener =
+            new OnSeekBarChangeListener() {
+                // update percent, then call calculate
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress,
+                                              boolean fromUser) {
+                    celsius = progress / 100.0; // set percent based on progress
+                    calculate(); // calculate and display tip and total
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                }
+            };
 
 }
 
